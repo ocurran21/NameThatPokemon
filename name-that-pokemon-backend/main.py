@@ -11,4 +11,6 @@ def get_pokemon(id):
     return requests.get(pokemon_list_json['results'][id]['url'])
 
 pokemon_name = get_pokemon(30).json()['forms'][0]['name']
+pokemon_image = get_pokemon(10).json()['sprites']['front_default']
 print(pokemon_name)
+print(pokemon_image)

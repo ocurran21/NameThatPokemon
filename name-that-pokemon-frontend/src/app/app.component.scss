@@ -4,7 +4,7 @@
     justify-content: center;
 
     img {
-        margin-top: 5rem;
+        margin-top: 12rem;
         scale: 4;
 
         &.hidePokemon {
@@ -17,12 +17,29 @@
     }
 }
 
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 2rem;
+    font-size: 32px;
+}
+
 .answerContainer {
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 10rem;
+    margin-top: 12rem;
+
+    button {
+        color: #87edff;
+        width: 200px;
+    }
 }
 
-
-
+.nextContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}

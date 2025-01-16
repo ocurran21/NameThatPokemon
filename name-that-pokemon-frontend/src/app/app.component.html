@@ -3,8 +3,10 @@
 </div>
 <div class="answerContainer">
     <button (click)="answerButtonClick()">{{pokemonName}}</button>
-    <button (click)="answerButtonClick()">Other</button>
-    <button (click)="answerButtonClick()">Other</button>
-    <button (click)="answerButtonClick()">Other</button>
-    <button (click)="getNextPokemon()">NEXT</button>
+    <button (click)="answerButtonClick()">{{wrongAnswers[0]}}</button>
+    <button (click)="answerButtonClick()">{{wrongAnswers[1]}}</button>
+    <button (click)="answerButtonClick()">{{wrongAnswers[2]}}</button>
+</div>
+<div class="nextContainer">
+    <button *ngIf="revealPokemon" (click)="getNextPokemon()">NEXT</button>
 </div>

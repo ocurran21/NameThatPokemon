@@ -2,10 +2,7 @@
     <img src={{pokemonImage}} [ngClass]="revealPokemon ? 'revealPokemon' : 'hidePokemon'" alt="" aria-label="Pokemon">
 </div>
 <div class="answerContainer">
-    <button (click)="answerButtonClick()">{{pokemonName}}</button>
-    <button (click)="answerButtonClick()">{{wrongAnswers[0]}}</button>
-    <button (click)="answerButtonClick()">{{wrongAnswers[1]}}</button>
-    <button (click)="answerButtonClick()">{{wrongAnswers[2]}}</button>
+    <button *ngFor="let answer of shuffledAnswers" [ngClass]="isCorrectAnswer ? 'correct' : 'incorrect'" (click)="correctAnswer(answer)">{{answer}}</button>
 </div>
 <div class="nextContainer">
     <button *ngIf="revealPokemon" (click)="getNextPokemon()">NEXT</button>

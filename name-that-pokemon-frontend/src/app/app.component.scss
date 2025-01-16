@@ -34,6 +34,14 @@ button {
     button {
         color: #87edff;
         width: 200px;
+
+        &.correct {
+            color: green;
+        }
+
+        &.incorrect {
+            color: red;
+        }
     }
 }
 

@@ -14,6 +14,10 @@ def get_random_pokemon():
     random_id = random.randint(0,50)
     return requests.get(pokemon_list_json['results'][random_id]['url']).json()
 
+def get_other_pokemon():
+    random_id = random.randint(0,50)
+    return requests.get(pokemon_list_json['results'][random_id]['url']).json()
+
 def get_wrong_pokemon_names(correct_name):
     wrong_answer1 = get_random_pokemon()
     while wrong_answer1 == correct_name:

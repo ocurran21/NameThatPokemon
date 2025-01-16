@@ -1,4 +1,10 @@
-<h1>{{testText}}</h1>
-<div>
-    <img src={{testImage}} alt="image of a Pokemon" class="overlayImage">
+<div class="imageContainer">
+    <img src={{pokemonImage}} [ngClass]="revealPokemon ? 'revealPokemon' : 'hidePokemon'" alt="" aria-label="Pokemon">
+</div>
+<div class="answerContainer">
+    <button (click)="answerButtonClick()">{{pokemonName}}</button>
+    <button (click)="answerButtonClick()">Other</button>
+    <button (click)="answerButtonClick()">Other</button>
+    <button (click)="answerButtonClick()">Other</button>
+    <button (click)="getNextPokemon()">NEXT</button>
 </div>

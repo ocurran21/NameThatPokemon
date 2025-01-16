@@ -1,5 +1,6 @@
 import json
 import requests
+import random
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 pokemonapi_url = "https://pokeapi.co/api/v2/pokemon?limit=50"
@@ -9,25 +10,20 @@ def get_all_pokemon():
 
 pokemon_list_json = get_all_pokemon().json()
 
-def get_pokemon(id):
-    return requests.get(pokemon_list_json['results'][id]['url'])
-
-# pokemon_name = get_pokemon(2).json()['forms'][0]['name']
-# pokemon_image = get_pokemon(2).json()['sprites']['front_default']
-# print(pokemon_name)
-# print(pokemon_image)
-name = get_pokemon(10).json()['forms'][0]['name']
-image = get_pokemon(10).json()['sprites']['front_default']
+def get_random_pokemon():
+    random_id = random.randint(0,50)
+    return requests.get(pokemon_list_json['results'][random_id]['url'])
 
 class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
+        random_pokemon = get_random_pokemon().json()
         self.send_response(200)
         self.send_header('Content-type', 'application/json') 
         self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
         response = {
-                        'pokemon_name': name,
-                        'pokemon_image': image
+                        'pokemon_name': random_pokemon['forms'][0]['name'],
+                        'pokemon_image': random_pokemon['sprites']['front_default']
                    } 
         self.wfile.write(json.dumps(response).encode())
 

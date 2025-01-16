@@ -1,4 +1,28 @@
-.overlayImage {
-    filter: brightness(0%);
-    scale: 4;
+.imageContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    img {
+        margin-top: 5rem;
+        scale: 4;
+
+        &.hidePokemon {
+            filter: brightness(0%);
+        }
+
+        &.revealPokemon {
+            filter: brightness(100%);
+        }
+    }
 }
+
+.answerContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10rem;
+}
+
+
+

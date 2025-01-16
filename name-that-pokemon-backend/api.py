@@ -16,7 +16,8 @@ def get_pokemon(id):
 # pokemon_image = get_pokemon(2).json()['sprites']['front_default']
 # print(pokemon_name)
 # print(pokemon_image)
-result = get_pokemon(2).json()['forms'][0]['name']
+name = get_pokemon(10).json()['forms'][0]['name']
+image = get_pokemon(10).json()['sprites']['front_default']
 
 class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -24,7 +25,10 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.send_header('Content-type', 'application/json') 
         self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
-        response = {'pokemon_name': result} 
+        response = {
+                        'pokemon_name': name,
+                        'pokemon_image': image
+                   } 
         self.wfile.write(json.dumps(response).encode())
 
 def run_server(): 

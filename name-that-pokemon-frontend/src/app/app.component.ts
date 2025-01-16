@@ -10,6 +10,7 @@ import { ApiResponse } from './core/models/api-response.model';
 
 export class AppComponent implements OnInit {
   testText:string = ""
+  testImage:string = ""
   title = 'name-that-pokemon-frontend';
 
   constructor(private apiService: ApiService) {}
@@ -18,6 +19,7 @@ export class AppComponent implements OnInit {
       this.apiService.getPokemonData().subscribe((response: ApiResponse) => {
         console.log("Data received...")
         this.testText = response.pokemon_name;
+        this.testImage = response.pokemon_image;
         console.log(response.pokemon_name);
       })
   }

@@ -1,37 +1,47 @@
 import json
 import requests
 import random
+from collections import deque
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 pokemonapi_url = "https://pokeapi.co/api/v2/pokemon?limit=50"
+pokemon_list_json = ''
+pokemon_ids = deque()
+other_pokemon_ids = deque()
 
-def get_all_pokemon():
-    return requests.get(pokemonapi_url)
+def get_all_pokemon(api_url):
+    return requests.get(api_url)
 
-pokemon_list_json = get_all_pokemon().json()
+def get_pokemon(pokemon_id: int):
+    return requests.get(pokemon_list_json['results'][pokemon_id]['url']).json()
 
-def get_random_pokemon():
-    random_id = random.randint(0,50)
-    return requests.get(pokemon_list_json['results'][random_id]['url']).json()
+def get_next_id():
+    if len(pokemon_ids) == 0:
+        reset_pokemon()
+    return pokemon_ids.pop()
 
-def get_other_pokemon():
-    random_id = random.randint(0,50)
-    return requests.get(pokemon_list_json['results'][random_id]['url']).json()
+def get_random_pokemon_ids():
+    random_pokemon_ids = random.sample(range(0,51), 10)
 
-def get_wrong_pokemon_names(correct_name):
-    wrong_answer1 = get_random_pokemon()
-    while wrong_answer1 == correct_name:
-         wrong_answer1 = get_random_pokemon()
+    for id in random_pokemon_ids: 
+        pokemon_ids.append(id)
 
-    wrong_answer2 = get_random_pokemon()
-    while ( wrong_answer2 == correct_name or wrong_answer2 == wrong_answer1 ):
-         wrong_answer2 = get_random_pokemon()
+def get_incorrect_pokemon_names(correct_id):
+    id_range = list(range(0,51))
+    id_range.remove(correct_id)
 
-    wrong_answer3 = get_random_pokemon()
-    while ( wrong_answer3 == correct_name or wrong_answer3 == wrong_answer2 or wrong_answer3 == wrong_answer1 ):
-         wrong_answer3 = get_random_pokemon()
-    
-    return [ get_pokemon_name(wrong_answer1), get_pokemon_name(wrong_answer2), get_pokemon_name(wrong_answer3) ]
+    random_pokemon_ids = random.sample(id_range, 3)
+    for id in random_pokemon_ids: 
+        other_pokemon_ids.append(id)
+
+    wrong_answer1 = get_pokemon_name(get_pokemon(other_pokemon_ids.pop()))
+    wrong_answer2 = get_pokemon_name(get_pokemon(other_pokemon_ids.pop()))
+    wrong_answer3 = get_pokemon_name(get_pokemon(other_pokemon_ids.pop()))
+
+    return [ wrong_answer1, wrong_answer2, wrong_answer3 ]
+
+def reset_pokemon():
+    get_random_pokemon_ids()
 
 def get_pokemon_name(pokemon_json):
     return pokemon_json['forms'][0]['name']   
@@ -41,17 +51,17 @@ def get_pokemon_image(pokemon_json):
 
 class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-        random_pokemon = get_random_pokemon()
-        correct_pokemon_name = get_pokemon_name(random_pokemon)
+        correct_pokemon_id = get_next_id()
+        random_pokemon = get_pokemon(correct_pokemon_id)
 
         self.send_response(200)
         self.send_header('Content-type', 'application/json') 
         self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
         response = {
-                        'pokemon_name': correct_pokemon_name,
+                        'pokemon_name': get_pokemon_name(random_pokemon),
                         'pokemon_image': get_pokemon_image(random_pokemon),
-                        'wrong_answers': get_wrong_pokemon_names(correct_pokemon_name)
+                        'wrong_answers': get_incorrect_pokemon_names(correct_pokemon_id)
                    } 
         self.wfile.write(json.dumps(response).encode())
 
@@ -63,4 +73,6 @@ def run_server():
     http_server.serve_forever()
 
 if __name__ == '__main__':
+    pokemon_list_json = get_all_pokemon(pokemonapi_url).json()
+    get_random_pokemon_ids()
     run_server()

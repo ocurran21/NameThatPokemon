@@ -1,10 +1,18 @@
+h3 {
+    font-family: "Jersey 15", serif;
+    font-size: 40px;
+    color: rgb(125, 177, 255);
+    margin-left: 2rem;
+    margin-bottom: 0;
+}
+
 .imageContainer {
     width: 100%;
     display: flex;
     justify-content: center;
 
     img {
-        margin-top: 5rem;
+        margin-top: 1rem;
         scale: 4;
 
         &.hidePokemon {
@@ -21,26 +29,28 @@ button {
     background: none;
     border: none;
     cursor: pointer;
-    margin: 2rem;
-    font-size: 32px;
+    font-family: "Jersey 15", serif;
+    text-transform: capitalize;
 }
 
 .answerContainer {
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 12rem;
-
+    margin-top: 6rem;
+    
     button {
-        color: #87edff;
-        width: 200px;
+        color: #ffffff;
+        width: 220px;     
+        margin: 2rem;
+        font-size: 40px;
 
         &.correct {
-            color: green;
+            color: rgb(52, 183, 57);
         }
 
         &.incorrect {
-            color: red;
+            color: rgb(146, 18, 18);
         }
     }
 }
@@ -49,5 +59,11 @@ button {
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 2rem;
+    margin: 0;
+    padding: 0;
+
+    button {
+        font-size: 200px;
+        color: #4D4040;
+    }
 }

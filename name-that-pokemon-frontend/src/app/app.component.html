@@ -1,4 +1,4 @@
-<h3>Total Score {{totalScore}}</h3>
+<h3>Total Score: {{totalScore}}</h3>
 <div class="imageContainer">
     <img src={{pokemonImage}} [ngClass]="revealPokemon ? 'revealPokemon' : 'hidePokemon'" alt="" aria-label="Pokemon">
 </div>
@@ -6,5 +6,5 @@
     <button *ngFor="let answer of shuffledAnswers" [ngClass]="checkAnswerCorrect(answer)" (click)="selectAnswer(answer)">{{answer}}</button>
 </div>
 <div class="nextContainer">
-    <button *ngIf="revealPokemon" (click)="getNextPokemon()">NEXT</button>
+    <button *ngIf="revealPokemon" (click)="getNextPokemon()">&#187;</button>
 </div>

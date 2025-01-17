@@ -16,7 +16,6 @@ export class AppComponent implements OnInit {
   wrongAnswers: string[] = []
   shuffledAnswers: string[] = []
   revealPokemon: boolean = false;
-  isCorrectAnswer: boolean = false;
 
   title = 'name-that-pokemon-frontend';
 
@@ -42,20 +41,23 @@ export class AppComponent implements OnInit {
     this.getRandomPokemon()
   }
 
-  correctAnswer(answer: string): void {
+  selectAnswer(): void {
     this.revealPokemon = true;
-    
-    if( answer === this.pokemonName ) {
-      this.isCorrectAnswer = true;
+  }
+
+  checkAnswerCorrect(answer:string): string {
+    if( answer !== this.pokemonName && this.revealPokemon ) {
+      return "incorrect";
+    } else if( answer === this.pokemonName && this.revealPokemon ) {
+      return "correct";
     } else {
-     this.isCorrectAnswer = false;
+      return "";
     }
   }
 
   shuffleAnswers(): void {
     let allAnswers: string[] = this.wrongAnswers;
     allAnswers.push(this.pokemonName);
-    this.isCorrectAnswer=false;
 
     this.shuffledAnswers = allAnswers.map(value => ({ value, sort: Math.random() }))
                                      .sort((i, j) => i.sort - j.sort)

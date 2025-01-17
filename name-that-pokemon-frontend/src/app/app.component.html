@@ -2,7 +2,7 @@
     <img src={{pokemonImage}} [ngClass]="revealPokemon ? 'revealPokemon' : 'hidePokemon'" alt="" aria-label="Pokemon">
 </div>
 <div class="answerContainer">
-    <button *ngFor="let answer of shuffledAnswers" [ngClass]="isCorrectAnswer ? 'correct' : 'incorrect'" (click)="correctAnswer(answer)">{{answer}}</button>
+    <button *ngFor="let answer of shuffledAnswers" [ngClass]="checkAnswerCorrect(answer)" (click)="selectAnswer()">{{answer}}</button>
 </div>
 <div class="nextContainer">
     <button *ngIf="revealPokemon" (click)="getNextPokemon()">NEXT</button>

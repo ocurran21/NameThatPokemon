@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from './core/services/api.service';
-import { ApiResponse } from './core/models/api-response.model';
+import { PokemonDetailsResponse } from './core/models/pokemon-details-response.model';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 
 @Component({
@@ -11,59 +11,62 @@ import { NgClass, NgFor, NgIf } from '@angular/common';
 })
 
 export class AppComponent implements OnInit {
-  pokemonName: string = ""
+  pokemonId: number = 0
   pokemonImage: string = ""
-  wrongAnswers: string[] = []
-  shuffledAnswers: string[] = []
+  pokemonNames: string[] = []
   revealPokemon: boolean = false;
   totalScore: number = 0;
-
-  title = 'name-that-pokemon-frontend';
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.revealPokemon = false;
     this.getRandomPokemon();
+
   }
 
   getRandomPokemon(): void {
-    this.apiService.getPokemonData().subscribe((response: ApiResponse) => {
+    this.apiService.getRandomPokemon().subscribe((response: PokemonDetailsResponse) => {
       console.log("Data received...")
-      this.pokemonName = response.pokemon_name;
+      this.pokemonId = response.pokemon_id;
       this.pokemonImage = response.pokemon_image;
-      this.wrongAnswers = response.wrong_answers;
-      this.shuffleAnswers();
+      this.pokemonNames = response.pokemon_names;
+      this.shuffleAnswers(this.pokemonNames);
     })
   }
 
   getNextPokemon(): void {
     this.revealPokemon = false;
-    this.getRandomPokemon()
+    this.apiService.getNextPokemon().subscribe((response: PokemonDetailsResponse) => {
+      console.log("Data received...")
+      this.pokemonId = response.pokemon_id;
+      this.pokemonImage = response.pokemon_image;
+      this.pokemonNames = response.pokemon_names;
+      this.shuffleAnswers(this.pokemonNames);
+    })
   }
 
   selectAnswer(answer: string): void {
     this.revealPokemon = true;
-    if( answer === this.pokemonName) this.totalScore++;
+    // if( answer === this.pokemonName) this.totalScore++;
   }
 
-  checkAnswerCorrect(answer: string): string {
-    if( answer !== this.pokemonName && this.revealPokemon ) {
-      return "incorrect";
-    } else if( answer === this.pokemonName && this.revealPokemon ) {
-      return "correct";
-    } else {
-      return "";
-    }
+  checkAnswerCorrect(answer: string): void {
+    // if( answer !== this.pokemonName && this.revealPokemon ) {
+    //   return "incorrect";
+    // } else if( answer === this.pokemonName && this.revealPokemon ) {
+    //   return "correct";
+    // } else {
+    //   return "";
+    // }
   }
 
-  shuffleAnswers(): void {
-    let allAnswers: string[] = this.wrongAnswers;
-    allAnswers.push(this.pokemonName);
-
-    this.shuffledAnswers = allAnswers.map(value => ({ value, sort: Math.random() }))
-                                     .sort((i, j) => i.sort - j.sort)
-                                     .map(({ value }) => value);
+  shuffleAnswers(pokemon_names: string[]): string[] {
+    let shuffledAnswers = pokemon_names.map(value => ({ value, sort: Math.random() }))
+                                       .sort((i, j) => i.sort - j.sort)
+                                       .map(({ value }) => value);
+                                  
+    return shuffledAnswers;
   }
 
   resetScore(): void {

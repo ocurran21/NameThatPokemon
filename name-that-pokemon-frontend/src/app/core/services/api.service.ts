@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs";
 import { PokemonDetailsResponse } from "../models/pokemon-details-response.model";
@@ -21,7 +21,11 @@ export class ApiService {
         return this.apiClient.get<PokemonDetailsResponse>(`${this.backendApiUrl}/next-pokemon`);
     }
 
-    verifyAnswer(): Observable<VerifyAnswerResponse> {
-        return this.apiClient.get<VerifyAnswerResponse>(`${this.backendApiUrl}/verify-pokemon`);
+    verifyAnswer(pokemonId: number, selectedAnswer: string): Observable<VerifyAnswerResponse> {
+        const params = new HttpParams() 
+             .set('pokemon_id', pokemonId.toString()) 
+             .set('guessed_name', selectedAnswer);
+
+        return this.apiClient.get<VerifyAnswerResponse>(`${this.backendApiUrl}/verify-pokemon`, { params });
     }
 }

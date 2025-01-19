@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from './core/services/api.service';
 import { PokemonDetailsResponse } from './core/models/pokemon-details-response.model';
 import { NgClass, NgFor, NgIf } from '@angular/common';
+import { VerifyAnswerResponse } from './core/models/verify-answer-response.model';
 
 @Component({
   selector: 'app-root',
@@ -16,60 +17,72 @@ export class AppComponent implements OnInit {
   pokemonNames: string[] = []
   revealPokemon: boolean = false;
   totalScore: number = 0;
+  correctName: string = "";
+  selectedAnswer: string = "";
+  showFinalScore: boolean = false;
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.revealPokemon = false;
     this.getRandomPokemon();
-
   }
 
-  getRandomPokemon(): void {
+  public getRandomPokemon(): void {
+    this.totalScore = 0;
+    this.revealPokemon = false;
+    this.showFinalScore = false;
     this.apiService.getRandomPokemon().subscribe((response: PokemonDetailsResponse) => {
       console.log("Data received...")
       this.pokemonId = response.pokemon_id;
       this.pokemonImage = response.pokemon_image;
-      this.pokemonNames = response.pokemon_names;
-      this.shuffleAnswers(this.pokemonNames);
+      this.pokemonNames =this.shuffleAnswers(response.pokemon_names);
     })
   }
 
-  getNextPokemon(): void {
+  public getNextPokemon(): void {
     this.revealPokemon = false;
-    this.apiService.getNextPokemon().subscribe((response: PokemonDetailsResponse) => {
+    this.apiService.getNextPokemon().subscribe((response: any) => {
+      if(response.reset) {
+        this.showFinalScore = true;
+      } else {
+        this.pokemonId = response.pokemon_id;
+        this.pokemonImage = response.pokemon_image;
+        this.pokemonNames =this.shuffleAnswers(response.pokemon_names);
+      }
       console.log("Data received...")
-      this.pokemonId = response.pokemon_id;
-      this.pokemonImage = response.pokemon_image;
-      this.pokemonNames = response.pokemon_names;
-      this.shuffleAnswers(this.pokemonNames);
     })
   }
 
   selectAnswer(answer: string): void {
     this.revealPokemon = true;
-    // if( answer === this.pokemonName) this.totalScore++;
+    this.selectedAnswer = answer;
+    this.apiService.verifyAnswer(this.pokemonId, answer).subscribe((response: VerifyAnswerResponse) => {
+      this.correctName = response.correct_pokemon_name;
+      if( response.answer_correct ) this.totalScore++;
+    });
   }
 
-  checkAnswerCorrect(answer: string): void {
-    // if( answer !== this.pokemonName && this.revealPokemon ) {
-    //   return "incorrect";
-    // } else if( answer === this.pokemonName && this.revealPokemon ) {
-    //   return "correct";
-    // } else {
-    //   return "";
-    // }
+  public selectedAnswerStyle(answer: string): string {
+    if( answer !== this.correctName && answer === this.selectedAnswer && this.revealPokemon) {
+      return "incorrect";
+    } else {
+      return "";
+    }
   }
 
-  shuffleAnswers(pokemon_names: string[]): string[] {
+  public revealCorrectAnswer(answer: string): string {
+    if( answer === this.correctName && this.revealPokemon) {
+      return "correct";
+    } else {
+      return "";
+    }
+  }
+
+  public shuffleAnswers(pokemon_names: string[]): string[] {
     let shuffledAnswers = pokemon_names.map(value => ({ value, sort: Math.random() }))
                                        .sort((i, j) => i.sort - j.sort)
                                        .map(({ value }) => value);
                                   
     return shuffledAnswers;
-  }
-
-  resetScore(): void {
-    this.totalScore = 0;
   }
 }

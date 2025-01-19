@@ -1,10 +1,16 @@
-<h3>Total Score: {{totalScore}}</h3>
-<div class="imageContainer">
-    <img src={{pokemonImage}} [ngClass]="revealPokemon ? 'revealPokemon' : 'hidePokemon'" alt="" aria-label="Pokemon">
+<div *ngIf="!showFinalScore">
+    <h3>Total Score: {{totalScore}}</h3>
+    <div class="imageContainer">
+        <img src={{pokemonImage}} [ngClass]="revealPokemon ? 'revealPokemon' : 'hidePokemon'" alt="" aria-label="Pokemon">
+    </div>
+    <div class="answerContainer">
+        <button *ngFor="let answer of pokemonNames" [ngClass]="[selectedAnswerStyle(answer), revealCorrectAnswer(answer)]" (click)="selectAnswer(answer)">{{answer}}</button>
+    </div>
+    <div class="nextContainer">
+        <button *ngIf="revealPokemon" (click)="getNextPokemon()">&#187;</button>
+    </div>
 </div>
-<div class="answerContainer">
-    <button *ngFor="let answer of shuffleAnswers(pokemonNames)" (click)="selectAnswer(answer)">{{answer}}</button>
-</div>
-<div class="nextContainer">
-    <button *ngIf="revealPokemon" (click)="getNextPokemon()">&#187;</button>
+<div *ngIf="showFinalScore">
+    <h2>Final Score: {{totalScore}}</h2>
+    <button (click)="getRandomPokemon()">Play Again</button>
 </div>

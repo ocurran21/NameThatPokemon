@@ -4,7 +4,7 @@ import random
 from collections import deque
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
-pokemonapi_url = "https://pokeapi.co/api/v2/pokemon?limit=50"
+pokemonapi_url = "https://pokeapi.co/api/v2/pokemon?limit=100"
 pokemon_list_json = ''
 pokemon_ids = deque()
 answers_pokemon_ids = deque()
@@ -21,7 +21,7 @@ def get_pokemon(pokemon_id: int):
 
 def get_random_pokemon_ids():
     pokemon_ids.clear()
-    random_pokemon_ids = random.sample(range(1,51), 10)
+    random_pokemon_ids = random.sample(range(1,101), 10)
 
     for id in random_pokemon_ids: 
         pokemon_ids.append(id)
@@ -29,7 +29,7 @@ def get_random_pokemon_ids():
 def get_answers(correct_pokemon_id):
     correct_answer = get_pokemon_name(get_pokemon(correct_pokemon_id))
 
-    id_range = list(range(1,51))
+    id_range = list(range(1,101))
     id_range.remove(correct_pokemon_id)
     random_pokemon_ids = random.sample(id_range, 4)
 

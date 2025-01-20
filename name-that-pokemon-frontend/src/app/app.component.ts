@@ -3,12 +3,14 @@ import { ApiService } from './core/services/api.service';
 import { PokemonDetailsResponse } from './core/models/pokemon-details-response.model';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { VerifyAnswerResponse } from './core/models/verify-answer-response.model';
+import { FinalScoreComponent } from './core/components/final-score/final-score.component';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
+  imports: [NgClass, NgIf, NgFor, FinalScoreComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
-  imports: [NgClass, NgIf, NgFor]
+  styleUrl: './app.component.scss'
 })
 
 export class AppComponent implements OnInit {
@@ -88,4 +90,6 @@ export class AppComponent implements OnInit {
                                   
     return shuffledAnswers;
   }
+
+  onPlayAgain(): void { this.getRandomPokemon(); }
 }

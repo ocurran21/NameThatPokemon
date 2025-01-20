@@ -11,4 +11,11 @@ body {
     @media(max-width: 950px) {
         background-image: url("../assets/pokemon-background-phone.png");
     }
+
+    button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-family: "Jersey 15", serif;
+    }
 }

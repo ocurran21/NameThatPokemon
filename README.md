@@ -19,6 +19,9 @@ This application is an Angular website which displays a game of 'Who's that Poke
 * pip
 * Python Libraries listed in requirements.txt
 
+### API Documentation
+OpenAI Documentation on cutom Python API can be found at: https://ocurran21.github.io/NameThatPokemon/name-that-pokemon-backend/docs/swagger-ui/dist/ 
+
 ### Installing
 
 * Clone the repository: 

@@ -22,30 +22,30 @@ This application is an Angular website which displays a game of 'Who's that Poke
 ### Installing
 
 * Clone the repository: 
-   ```bash git clone https://github.com/ocurran21/NameThatPokemon.git```
+   ```git clone https://github.com/ocurran21/NameThatPokemon.git```
 
 #### Backend Installation
 1. Open a terminal in the NameThatPokemon directory and navigate to the backend project directory:
-    ```bash cd .\name-that-pokemon-backend\```
+    ```cd .\name-that-pokemon-backend\```
 2. Install the required Python packages: 
-    ```bash pip install -r requirements.txt``` 
+    ```pip install -r requirements.txt``` 
 
 #### Frontend Installation
 1. Open a terminal in the NameThatPokemon directory and navigate to the frontend project directory:
-    ```bash cd .\name-that-pokemon-frontend\```
+    ```cd .\name-that-pokemon-frontend\```
 2. Install the required npm packages: 
-    ```bash npm install ```
+    ```npm install ```
 
 ### Executing program
 
 * In the _name-that-pokemon-backend_ directory, start the backend api using:
-    ```bash python api.py```
+    ```python api.py```
 * In the _name-that-pokemon-frontend_ directory, start the frontend server using:
-    ```bash ng serve```
+    ```ng serve```
 * Open your browser and navigate to http://localhost:4200 to play 'Who's that Pokemon?'.
 
 ### Testing
 * Run Python Unit tests using the command:
-    ```bash python -m unittest discover```
+    ```python -m unittest discover```
 * Run Angular Unit tests using the command:
-    ```bash ng test```
+    ```ng test```

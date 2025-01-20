@@ -19,22 +19,20 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: 'https://ocurran21.github.io/NameThatPokemon/'
+      url: 'https://ocurran21.github.io/NameThatPokemon/name-that-pokemon-backend/docs/swagger-ui/dist/' 
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          path: name-that-pokemon-backend
-          submodules: true 
+          submodules: true
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
       - name: Create .nojekyll file
         run: |
-          cd name-that-pokemon-backend/docs/swagger-ui/dist
-          touch .nojekyll
+          touch name-that-pokemon-backend/docs/swagger-ui/dist/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

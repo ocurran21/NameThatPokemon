@@ -33,7 +33,7 @@ jobs:
 
       - name: Create .nojekyll file
         run: |
-          cd name-that-pokemon-backend
+          cd name-that-pokemon-backend/docs/swagger-ui/dist
           touch .nojekyll
 
       - name: Upload artifact

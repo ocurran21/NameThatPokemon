@@ -34,7 +34,6 @@ jobs:
         run: |
           cd name-that-pokemon-backend
           touch .nojekyll
-          mkdir -p docs/swagger-ui/dist
           cp .nojekyll docs/swagger-ui/dist/
 
       - name: Upload artifact

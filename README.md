@@ -4,24 +4,48 @@ A simple web game of 'Who's that Pokemon?'.
 
 ## Description
 
-An in-depth paragraph about your project and overview of use.
+This application is an Angular website which displays a game of 'Who's that Pokemon?'. A user is shown the silhouette of a random Pokemon and must guess the name of the POkemon from a list of four names. Upon selecting an answer the user is shown the image of the Pokemon along with verification if their guess was correct or incorrect. The user gets a final score out of ten and can play again with a new set of random Pokemon. All pokemon data is retrieved from [Pokémon API](https://pokeapi.co/docs/v2) and processed using a backend API written in Python.
 
 ## Getting Started
 
-### Dependencies
+### Frontend Dependencies
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+* Node.js
+* Angular CLI
+* npm
+
+### Backend Dependencies
+* Python
+* pip
+* Python Libraries listed in requirements.txt
 
 ### Installing
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+* Clone the repository: 
+   ```git clone https://github.com/ocurran21/NameThatPokemon.git```
+
+#### Backend Installation
+1. Open a terminal in the NameThatPokemon directory and navigate to the backend project directory:
+    ```cd .\name-that-pokemon-backend\```
+2. Install the required Python packages: 
+    ```pip install -r requirements.txt``` 
+
+#### Frontend Installation
+1. Open a terminal in the NameThatPokemon directory and navigate to the frontend project directory:
+    ```cd .\name-that-pokemon-frontend\```
+2. Install the required npm packages: 
+    ```npm install ```
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
-```
+* In the _name-that-pokemon-backend_ directory, start the backend api using:
+    ```python api.py```
+* In the _name-that-pokemon-frontend_ directory, start the frontend server using:
+    ```ng serve```
+* Open your browser and navigate to http://localhost:4200 to play 'Who's that Pokemon?'.
+
+### Testing
+* Run Python Unit tests using the command:
+    ```python -m unittest discover```
+* Run Angular Unit tests using the command:
+    ```ng test```

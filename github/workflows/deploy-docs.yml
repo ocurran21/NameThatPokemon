@@ -19,7 +19,7 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: 'https://ocurran21.github.io/NameThatPokemon/docs/name-that-pokemon-backend/swagger-ui/dist/'  # Ensure accurate URL reflecting your full path
+      url: 'https://ocurran21.github.io/NameThatPokemon/name-that-pokemon-backend/docs/swagger-ui/dist/'  # Ensure accurate URL reflecting your full path
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

@@ -10,7 +10,7 @@
         <button *ngIf="revealPokemon" (click)="getNextPokemon()">&#187;</button>
     </div>
 </div>
-<div *ngIf="showFinalScore">
-    <h2>Final Score: {{totalScore}}</h2>
-    <button (click)="getRandomPokemon()">Play Again</button>
+<div *ngIf="showFinalScore" class="finalScoreContainer">
+    <h2>Final Score: {{totalScore}}/10</h2>
+    <button (click)="getRandomPokemon()">Play Again?</button>
 </div>

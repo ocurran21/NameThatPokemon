@@ -68,3 +68,20 @@ button {
         color: #4D4040;
     }
 }
+
+.finalScoreContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: "Jersey 15", serif;
+    color: #63c8ff;
+    font-size: 80px;
+
+    button {
+        font-family: "Jersey 15", serif;
+        color: #63e5ff;
+        font-size: 80px;
+    }
+}

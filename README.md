@@ -4,7 +4,7 @@ A simple web game of 'Who's that Pokemon?'.
 
 ## Description
 
-This application is an Angular website which displays a game of 'Who's that Pokemon?'. A user is shown the silhouette of a random Pokemon and must guess the name of the POkemon from a list of four names. Upon selecting an answer the user is shown the image of the Pokemon along with verification if their guess was correct or incorrect. The user gets a final score out of ten and can play again with a new set of random Pokemon. All pokemon data is retrieved from [Pokémon API](https://pokeapi.co/docs/v2) and processed using a backend API written in Python.
+This application is an Angular website which displays a game of 'Who's that Pokemon?'. A user is shown the silhouette of a random Pokemon and must guess the name of the Pokemon from a list of four names. Upon selecting an answer the user is shown the image of the Pokemon along with verification if their guess was correct or incorrect. The user gets a final score out of ten and can play again with a new set of random Pokemon. All pokemon data is retrieved from [Pokémon API](https://pokeapi.co/docs/v2) and processed using a backend API written in Python.
 
 ## Getting Started
 

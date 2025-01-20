@@ -19,13 +19,14 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: 'https://ocurran21.github.io/NameThatPokemon/'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           path: name-that-pokemon-backend
+          submodules: true 
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -34,7 +35,6 @@ jobs:
         run: |
           cd name-that-pokemon-backend
           touch .nojekyll
-          cp .nojekyll docs/swagger-ui/dist/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

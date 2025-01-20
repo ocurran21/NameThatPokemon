@@ -10,13 +10,13 @@ This application is an Angular website which displays a game of 'Who's that Poke
 
 ### Frontend Dependencies
 
-* Node.js
-* Angular CLI
-* npm
+* Node.js >= v22.13.0
+* Angular CLI >= 19.0.7
+* npm >= 11.0.0
 
 ### Backend Dependencies
-* Python
-* pip
+* Python >= v3.9.13
+* pip >= v24.3.1
 * Python Libraries listed in requirements.txt
 
 ### API Documentation

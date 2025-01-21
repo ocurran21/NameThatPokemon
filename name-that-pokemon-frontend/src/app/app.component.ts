@@ -17,9 +17,7 @@ import { ShuffleArrayService } from './core/services/shuffle-array.service';
 
 export class AppComponent implements OnInit {
   totalScore: number = 0;
-  pokemonImage: string = "";
-  pokemonId: number = 0;
-  pokemonNames: string[] = [];
+  currentPokemon: PokemonDetailsResponse = {pokemon_id: 0, pokemon_image: "", pokemon_names: ["", "", "", ""]}
   showFinalScore: boolean = false;
 
   constructor(
@@ -35,18 +33,14 @@ export class AppComponent implements OnInit {
     this.totalScore = 0;
     this.showFinalScore = false;
     this.apiService.getRandomPokemon().subscribe((response: PokemonDetailsResponse) => {
-      this.pokemonId = response.pokemon_id;
-      this.pokemonImage = response.pokemon_image;
-      this.pokemonNames =this.shuffleArrayService.shuffleArray<string>(response.pokemon_names);
+      let shuffledNames = this.shuffleArrayService.shuffleArray<string>(response.pokemon_names);
+      if( shuffledNames ) {
+        this.currentPokemon = {
+          ...response,
+          pokemon_names: shuffledNames as [string, string, string, string]
+        }
+      }
     })
-  }
-
-  private shuffleAnswers(pokemon_names: string[]): string[] {
-    let shuffledAnswers = pokemon_names.map(value => ({ value, sort: Math.random() }))
-                                       .sort((i, j) => i.sort - j.sort)
-                                       .map(({ value }) => value);
-                                  
-    return shuffledAnswers;
   }
 
   onIncrementScore(): void { this.totalScore++; }

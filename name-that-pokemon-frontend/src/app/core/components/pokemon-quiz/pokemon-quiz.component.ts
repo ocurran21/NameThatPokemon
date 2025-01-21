@@ -16,9 +16,7 @@ import { ShuffleArrayService } from '@app/core/services/shuffle-array.service';
 
 export class PokemonQuizComponent {
   @Input() totalScore!: number; 
-  @Input() pokemonId!: number;
-  @Input() pokemonImage!: string;
-  @Input() pokemonNames: string[] = [];
+  @Input() currentPokemon!: PokemonDetailsResponse;
   @Output() gameComplete = new EventEmitter<void>();
   @Output() incrementScore = new EventEmitter<void>();
   
@@ -32,17 +30,20 @@ export class PokemonQuizComponent {
     private shuffleArrayService: ShuffleArrayService
   ) {}
 
-  selectAnswer(answer: string): void {
+  selectAnswer( answer: string ): void {
     this.revealPokemon = true;
     this.selectedAnswer = answer;
     this.disableButtons = true;
-    this.apiService.verifyAnswer(this.pokemonId, answer).subscribe((response: VerifyAnswerResponse) => {
-      this.correctName = response.correct_pokemon_name;
-      if( response.answer_correct ) this.incrementScore.emit();
-    });
+
+    if( this.currentPokemon ) {
+      this.apiService.verifyAnswer(this.currentPokemon.pokemon_id, answer).subscribe((response: VerifyAnswerResponse) => {
+        this.correctName = response.correct_pokemon_name;
+        if( response.answer_correct ) this.incrementScore.emit();
+      });
+    }
   }
 
-  selectedAnswerStyle(answer: string): string {
+  selectedAnswerStyle( answer: string ): string {
     if( answer !== this.correctName && answer === this.selectedAnswer && this.revealPokemon) {
       return "incorrect";
     } else {
@@ -50,7 +51,7 @@ export class PokemonQuizComponent {
     }
   }
 
-  revealCorrectAnswer(answer: string): string {
+  revealCorrectAnswer(  answer: string ): string {
     if( answer === this.correctName && this.revealPokemon) {
       return "correct";
     } else {
@@ -58,20 +59,24 @@ export class PokemonQuizComponent {
     }
   }
 
-  isResetGameResponse(response: PokemonDetailsResponse | ResetGameResponse): response is ResetGameResponse {
+  isResetGameResponse( response: PokemonDetailsResponse | ResetGameResponse ): response is ResetGameResponse {
     return 'reset' in response;
   }
 
   onNextClick(): void {
     this.revealPokemon = false;
     this.disableButtons = false;
-    this.apiService.getNextPokemon().subscribe((response: PokemonDetailsResponse | ResetGameResponse) => {
-      if( this.isResetGameResponse(response) ) {
+    this.apiService.getNextPokemon().subscribe(( response: PokemonDetailsResponse | ResetGameResponse ) => {
+      if( this.isResetGameResponse( response ) ) {
         this.gameComplete.emit();
       } else {
-        this.pokemonId = response.pokemon_id;
-        this.pokemonImage = response.pokemon_image;
-        this.pokemonNames = this.shuffleArrayService.shuffleArray<string>(response.pokemon_names);
+        let shuffledNames = this.shuffleArrayService.shuffleArray<string>( response.pokemon_names );
+        if( shuffledNames ) {
+          this.currentPokemon = {
+            ...response,
+            pokemon_names: shuffledNames as [string, string, string, string]
+          }
+        }
       }
     })
   }

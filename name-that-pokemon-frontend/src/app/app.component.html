@@ -1,9 +1,7 @@
 <app-pokemon-quiz
     *ngIf="!showFinalScore"
     [totalScore]="totalScore"
-    [pokemonId]="pokemonId"
-    [pokemonImage]="pokemonImage"
-    [pokemonNames]="pokemonNames"
+    [currentPokemon]="currentPokemon"
     (gameComplete)="onGameComplete()"
     (incrementScore)="onIncrementScore()">
 </app-pokemon-quiz>

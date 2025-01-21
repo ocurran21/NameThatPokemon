@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FinalScoreComponent } from './final-score.component';
 
-describe('FinalScoreNewComponent', () => {
+describe('FinalScoreComponent', () => {
   let component: FinalScoreComponent;
   let fixture: ComponentFixture<FinalScoreComponent>;
 
@@ -16,7 +16,7 @@ describe('FinalScoreNewComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create component', () => {
+  it('should create final-score component', () => {
     expect(component).toBeTruthy();
   });
 

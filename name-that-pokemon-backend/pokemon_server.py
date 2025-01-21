@@ -2,7 +2,7 @@ import json
 import random
 from collections import deque
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from config import MAX_POKEMON, POKEMONAPI_URL
+from config import MAX_POKEMON, NUM_QUESTIONS, NUM_ANSWERS, POKEMONAPI_URL
 
 import requests
 
@@ -23,7 +23,7 @@ def get_pokemon(pokemon_id: int):
 
 def get_random_pokemon_ids():
     ALL_POKEMON_IDS.clear()
-    random_pokemon_ids = random.sample(range(1,MAX_POKEMON + 1), 10)
+    random_pokemon_ids = random.sample(range(1,MAX_POKEMON + 1), NUM_QUESTIONS)
 
     for id in random_pokemon_ids: 
         ALL_POKEMON_IDS.append(id)
@@ -33,7 +33,7 @@ def get_answers(correct_pokemon_id):
 
     id_range = list(range(1,MAX_POKEMON + 1))
     id_range.remove(correct_pokemon_id)
-    random_pokemon_ids = random.sample(id_range, 4)
+    random_pokemon_ids = random.sample(id_range, NUM_ANSWERS)
 
     for id in random_pokemon_ids: 
         ANSWERS_POKEMON_IDS.append(id)

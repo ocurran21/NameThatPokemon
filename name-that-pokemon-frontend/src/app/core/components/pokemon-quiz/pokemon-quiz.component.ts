@@ -51,7 +51,7 @@ export class PokemonQuizComponent {
     }
   }
 
-  revealCorrectAnswer(  answer: string ): string {
+  revealCorrectAnswer( answer: string ): string {
     if( answer === this.correctName && this.revealPokemon) {
       return "correct";
     } else {

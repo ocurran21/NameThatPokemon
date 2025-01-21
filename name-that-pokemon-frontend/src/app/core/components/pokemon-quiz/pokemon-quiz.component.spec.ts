@@ -107,7 +107,7 @@ describe('PokemonQuizComponent', () => {
   });
 
   describe('onNextClick()', () => {
-    it('should set revealPokeemon to false and disableButtons to false', () => {
+    it('should set revealPokemon to false and disableButtons to false', () => {
       component.revealPokemon = true;
       component.disableButtons = true;
 

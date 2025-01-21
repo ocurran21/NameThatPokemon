@@ -33,18 +33,26 @@ describe('AppComponent', () => {
   });
 
   describe('getRandomPokemon()', () => {
+    it('should set totalScore to 0 and showFinalScore to false', () => {
+      component.totalScore = 11;
+      component.showFinalScore = true;
 
+      component.getRandomPokemon();
+
+      expect(component.totalScore).toBe(0); 
+      expect(component.showFinalScore).toBeFalsy();
+    })
   });
 
   describe('onIncrementScore()', () => {
-    it('if score is 0 then score should be 1', () => {
+    it('should be 1 if score was 0', () => {
         component.totalScore = 0;
         component.onIncrementScore()
         let result = component.totalScore;
         expect(result).toBe(1);
     });
 
-    it('if score is 15 then score should be 16', () => {
+    it('should be 16 if score was 15', () => {
         component.totalScore = 15;
         component.onIncrementScore()
         let result = component.totalScore;
@@ -53,10 +61,11 @@ describe('AppComponent', () => {
   });
 
   describe('onGameComplete()', () => {
-
-  });
-
-  describe('onPlayAgain()', () => {
-
+    it('showFinalScore should be set to true', () => {
+      component.showFinalScore
+      component.onGameComplete();
+      let result = component.showFinalScore;
+      expect(result).toBeTruthy();
+    });
   });
 });

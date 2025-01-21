@@ -40,13 +40,44 @@ describe('PokemonQuizComponent', () => {
   });
 
   describe('selectAnswer()', () => {
+    it('should set revealPokeemon to true, selected answer to Treeko and disableButtons to true', () => {
+      component.revealPokemon = false;
+      component.selectedAnswer = "";
+      component.disableButtons = false;
 
+      component.selectAnswer('Treeko');
+
+      expect(component.revealPokemon).toBeTruthy(); 
+      expect(component.selectedAnswer).toBe('Treeko'); 
+      expect(component.disableButtons).toBeTruthy();
+    })
   });
 
   describe('selectedAnswerStyle()', () => {
-    it('', () => {
-       
-    });
+    it('should return "incorrect" if answer does not equal correctName and revealPokemon is true', () => {
+      component.correctName = "Lucario";
+      component.revealPokemon = true;
+      component.selectedAnswer = "Magikarp";
+
+      let result = component.selectedAnswerStyle("Magikarp");
+      expect(result).toBe("incorrect");
+   });
+
+   it('should return "" if answer equals correctName and revealPokemon is true', () => {
+      component.correctName = "Lucario";
+      component.revealPokemon = true;
+
+      let result = component.selectedAnswerStyle("Lucario");
+      expect(result).toBe("");
+   });
+
+   it('should return "" if answer does not equal correctName and revealPokemon is false', () => {
+       component.correctName = "Lucario";
+       component.revealPokemon = false;
+
+       let result = component.selectedAnswerStyle("Magikarp");
+       expect(result).toBe("");
+   });
   });
 
   describe('revealCorrectAnswer()', () => {
@@ -66,7 +97,7 @@ describe('PokemonQuizComponent', () => {
        expect(result).toBe("");
     });
 
-    it('should return "" if answer does equals correctName and revealPokemon is false', () => {
+    it('should return "" if answer equals correctName and revealPokemon is false', () => {
         component.correctName = "Lucario";
         component.revealPokemon = false;
  
@@ -75,19 +106,15 @@ describe('PokemonQuizComponent', () => {
     });
   });
 
-  describe('isResetGameResponse()', () => {
-
-  });
-
   describe('onNextClick()', () => {
+    it('should set revealPokeemon to false and disableButtons to false', () => {
+      component.revealPokemon = true;
+      component.disableButtons = true;
 
-  });
+      component.onNextClick();
 
-  describe('onGameComplete()', () => {
-
-  });
-
-  describe('onIncrementScore()', () => {
-
+      expect(component.revealPokemon).toBeFalsy(); 
+      expect(component.disableButtons).toBeFalsy();
+    })
   });
 });

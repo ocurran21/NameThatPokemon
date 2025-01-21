@@ -1,0 +1,67 @@
+h3 {
+    font-family: "Jersey 15", serif;
+    font-size: 40px;
+    color: rgb(125, 177, 255);
+    margin-left: 2rem;
+    margin-bottom: 0;
+}
+
+.imageContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10%;
+
+    img {
+        margin-top: 1rem;
+        scale: 4;
+
+        &.hidePokemon {
+            filter: brightness(0%);
+        }
+
+        &.revealPokemon {
+            filter: brightness(100%);
+        }
+    }
+}
+
+button {
+    text-transform: capitalize;
+}
+
+.answerContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 6rem;
+    
+    button {
+        color: #ffffff;
+        width: 220px;     
+        margin: 2rem;
+        font-size: 40px;
+        font-family: "Jersey 15", serif;;
+
+        &.correct {
+            color: rgb(52, 183, 57);
+        }
+
+        &.incorrect {
+            color: rgb(146, 18, 18);
+        }
+    }
+}
+
+.nextContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 6%;
+    padding: 0;
+
+    button {
+        font-size: 200px;
+        color: #4D4040;
+    }
+}

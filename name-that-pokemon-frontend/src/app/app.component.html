@@ -1,15 +1,13 @@
-<div *ngIf="!showFinalScore">
-    <h3>Total Score: {{totalScore}}</h3>
-    <div class="imageContainer">
-        <img src={{pokemonImage}} [ngClass]="revealPokemon ? 'revealPokemon' : 'hidePokemon'" alt="" aria-label="Pokemon">
-    </div>
-    <div class="answerContainer">
-        <button *ngFor="let answer of pokemonNames" [ngClass]="[selectedAnswerStyle(answer), revealCorrectAnswer(answer)]" (click)="selectAnswer(answer)" [disabled]="disableButtons">{{answer}}</button>
-    </div>
-    <div class="nextContainer">
-        <button *ngIf="revealPokemon" (click)="getNextPokemon()">&#187;</button>
-    </div>
-</div>
+<app-pokemon-quiz
+    *ngIf="!showFinalScore"
+    [totalScore]="totalScore"
+    [pokemonId]="pokemonId"
+    [pokemonImage]="pokemonImage"
+    [pokemonNames]="pokemonNames"
+    (gameComplete)="onGameComplete()"
+    (incrementScore)="onIncrementScore()">
+</app-pokemon-quiz>
+
 <app-final-score
     *ngIf="showFinalScore"
     [totalScore]="totalScore" 

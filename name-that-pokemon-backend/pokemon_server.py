@@ -1,13 +1,15 @@
 import json
-import requests
 import random
 from collections import deque
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from config import MAX_POKEMON, POKEMONAPI_URL
 
-pokemonapi_url = "https://pokeapi.co/api/v2/pokemon?limit=100"
+import requests
+
+ALL_POKEMON_IDS = deque()
+ANSWERS_POKEMON_IDS = deque()
+
 pokemon_list_json = ''
-pokemon_ids = deque()
-answers_pokemon_ids = deque()
 correct_pokemon = ''
 
 def get_all_pokemon(api_url):
@@ -20,25 +22,25 @@ def get_pokemon(pokemon_id: int):
         return ""
 
 def get_random_pokemon_ids():
-    pokemon_ids.clear()
-    random_pokemon_ids = random.sample(range(1,101), 10)
+    ALL_POKEMON_IDS.clear()
+    random_pokemon_ids = random.sample(range(1,MAX_POKEMON + 1), 10)
 
     for id in random_pokemon_ids: 
-        pokemon_ids.append(id)
+        ALL_POKEMON_IDS.append(id)
 
 def get_answers(correct_pokemon_id):
     correct_answer = get_pokemon_name(get_pokemon(correct_pokemon_id))
 
-    id_range = list(range(1,101))
+    id_range = list(range(1,MAX_POKEMON + 1))
     id_range.remove(correct_pokemon_id)
     random_pokemon_ids = random.sample(id_range, 4)
 
     for id in random_pokemon_ids: 
-        answers_pokemon_ids.append(id)
+        ANSWERS_POKEMON_IDS.append(id)
     
-    wrong_answer1 = get_pokemon_name(get_pokemon(answers_pokemon_ids.pop()))
-    wrong_answer2 = get_pokemon_name(get_pokemon(answers_pokemon_ids.pop()))
-    wrong_answer3 = get_pokemon_name(get_pokemon(answers_pokemon_ids.pop()))
+    wrong_answer1 = get_pokemon_name(get_pokemon(ANSWERS_POKEMON_IDS.pop()))
+    wrong_answer2 = get_pokemon_name(get_pokemon(ANSWERS_POKEMON_IDS.pop()))
+    wrong_answer3 = get_pokemon_name(get_pokemon(ANSWERS_POKEMON_IDS.pop()))
 
     return [ correct_answer, wrong_answer1, wrong_answer2, wrong_answer3 ]
 
@@ -57,7 +59,7 @@ def check_answer_correct(guessed_name, correct_pokemon):
 
 def random_pokemon_details():
     get_random_pokemon_ids()
-    correct_pokemon_id = pokemon_ids.pop()
+    correct_pokemon_id = ALL_POKEMON_IDS.pop()
     global correct_pokemon 
     correct_pokemon = get_pokemon(correct_pokemon_id)
 
@@ -70,9 +72,9 @@ def random_pokemon_details():
     return response
 
 def next_pokemon_details():
-    if len(pokemon_ids) > 0:
+    if len(ALL_POKEMON_IDS) > 0:
         try:
-            correct_pokemon_id = pokemon_ids.pop()
+            correct_pokemon_id = ALL_POKEMON_IDS.pop()
             global correct_pokemon 
             correct_pokemon = get_pokemon(correct_pokemon_id)
             response = {
@@ -131,5 +133,5 @@ def run_server():
     http_server.serve_forever()
 
 if __name__ == '__main__':
-    pokemon_list_json = get_all_pokemon(pokemonapi_url).json()
+    pokemon_list_json = get_all_pokemon(POKEMONAPI_URL).json()
     run_server()

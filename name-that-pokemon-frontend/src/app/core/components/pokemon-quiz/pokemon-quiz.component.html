@@ -1,0 +1,10 @@
+<h3>Total Score: {{totalScore}}</h3>
+<section class="imageContainer">
+    <img src={{pokemonImage}} [ngClass]="revealPokemon ? 'revealPokemon' : 'hidePokemon'" alt="" aria-label="Pokemon">
+</section>
+<section class="answerContainer">
+    <button *ngFor="let answer of pokemonNames" [ngClass]="[selectedAnswerStyle(answer), revealCorrectAnswer(answer)]" (click)="selectAnswer(answer)" [disabled]="disableButtons">{{answer}}</button>
+</section>
+<div class="nextContainer">
+    <button *ngIf="revealPokemon" (click)="onNextClick()">&#187;</button>
+</div>

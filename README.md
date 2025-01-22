@@ -52,3 +52,10 @@ OpenAI Documentation on cutom Python API can be found at: https://ocurran21.gith
     ```python -m unittest discover```
 * Run Angular Unit tests using the command:
     ```ng test```
+
+### What I learned
+* Create more Gener models for responses.
+* Avoid globals so that API can be serverless.
+* Add integration tests for APIs.
+* Try to not applying styles to specific tags such as button (look into BEM methodology)
+* Create an interface for the game state.

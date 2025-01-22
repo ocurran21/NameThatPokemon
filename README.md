@@ -59,3 +59,4 @@ OpenAI Documentation on cutom Python API can be found at: https://ocurran21.gith
 * Add integration tests for APIs.
 * Try to not applying styles to specific tags such as button (look into BEM methodology)
 * Create an interface for the game state.
+* Optimise API calls.
